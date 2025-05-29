@@ -12,6 +12,7 @@ function setup() {
 }
 
 function draw() {
-  background(255, 20); // efecto de desvanecimiento
-  
+  background(255, 20);
+  FileList(0);
+  ellipse(50,50,50,50);
 }
