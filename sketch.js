@@ -11,7 +11,7 @@ let colores = [];
 let mic, amp;
 let ultimoColor = null;
 
-const AMP_MIN = 0.05; // mínimo volumen para considerar que estás hablando
+const AMP_MIN = 0.05; 
 
 function preload() {
   for (let nombre of nombresPinceles) {
@@ -42,7 +42,7 @@ function draw() {
   let volumen = amp.getLevel();
   volumen = constrain(volumen, 0, 0.3);
 
-  // Solo dibujar si el volumen supera el umbral
+
   if (volumen > AMP_MIN && frameCount % 15 === 0) {
     let escala = map(volumen, AMP_MIN, 0.3, 0.4, 2.0);
 
@@ -66,11 +66,10 @@ function randomColoresBalanceados() {
   } while (col === ultimoColor);
   ultimoColor = col;
 
-// Si el color es negro, aplicamos transparencia
   if (red(col) === 0 && green(col) === 0 && blue(col) === 0) {
-    col.setAlpha(100); // negro semi-transparente
+    col.setAlpha(100); 
   } else {
-    col.setAlpha(255); // otros colores opacos
+    col.setAlpha(255); 
   }
 
   return col;
