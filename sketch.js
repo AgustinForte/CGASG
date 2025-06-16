@@ -1,22 +1,22 @@
-let pinceles = [];
-let nombresPinceles = [
-  "1.png",
-  "2.png",
-  "3.png",
-  "4.png",
-  "5.png"
-];
+let pincelesBajo = [];
+let pincelesMedio = [];
+let pincelesAlto = [];
 
 let colores = [];
 let mic, amp;
 let ultimoColor = null;
 
-const AMP_MIN = 0.05; 
+let AMP_MIN = 0.03; 
 
 function preload() {
-  for (let nombre of nombresPinceles) {
-    pinceles.push(loadImage(`imagenes/${nombre}`));
-  }
+  pincelesBajo.push(loadImage("imagenes/1.png"));
+  pincelesBajo.push(loadImage("imagenes/2.png"));
+
+  pincelesMedio.push(loadImage("imagenes/3.png"));
+  pincelesMedio.push(loadImage("imagenes/4.png"));
+
+  pincelesAlto.push(loadImage("imagenes/5.png"));
+  pincelesAlto.push(loadImage("imagenes/6.png"));
 }
 
 function setup() {
@@ -42,14 +42,21 @@ function draw() {
   let volumen = amp.getLevel();
   volumen = constrain(volumen, 0, 0.3);
 
-
-  if (volumen > AMP_MIN && frameCount % 15 === 0) {
+  if (volumen > AMP_MIN) {
     let escala = map(volumen, AMP_MIN, 0.3, 0.4, 2.0);
 
     let x = random(width);
     let y = random(height);
 
-    let pincel = random(pinceles);
+    let pincel;
+    if (volumen < 0.1) {
+      pincel = random(pincelesBajo);
+    } else if (volumen < 0.3) {
+      pincel = random(pincelesMedio);
+    } else {
+      pincel = random(pincelesAlto);
+    }
+
     let col = randomColoresBalanceados();
 
     tint(col);
@@ -58,7 +65,6 @@ function draw() {
     noTint();
   }
 }
-
 function randomColoresBalanceados() {
   let col;
   do {
