@@ -10,17 +10,20 @@ let AMP_MIN = 0.03;
 let canvasPinceles;
 
 let tiempoUltimoSonido = 0;
-const TIEMPO_LIMITE_SIN_SONIDO = 5000; // 5 segundos
+const TIEMPO_LIMITE_SIN_SONIDO = 3000; // segundos
 
 function preload() {
-  pincelesBajo.push(loadImage("imagenes/1.png"));
-  pincelesBajo.push(loadImage("imagenes/2.png"));
+  for (let i = 1; i <= 17; i++) {
+    let img = loadImage(`imagenes/${i}.png`);
 
-  pincelesMedio.push(loadImage("imagenes/3.png"));
-  pincelesMedio.push(loadImage("imagenes/4.png"));
-
-  pincelesAlto.push(loadImage("imagenes/5.png"));
-  pincelesAlto.push(loadImage("imagenes/6.png"));
+    if (i >= 1 && i <= 5) {
+      pincelesBajo.push(img);
+    } else if (i >= 6 && i <= 11) {
+      pincelesMedio.push(img);
+    } else if (i >= 12 && i <= 17) {
+      pincelesAlto.push(img);
+    }
+  }
 }
 
 function setup() {
@@ -31,11 +34,11 @@ function setup() {
   canvasPinceles.clear();
 
   colores = [
-    color(255, 0, 0),
-    color(0, 0, 255),
-    color(255, 255, 0),
-    color(0, 255, 0),
-    color(0), // negro
+    color(208, 87, 76),
+    color(40, 97, 164),
+    color(193, 174, 80),
+    color(12, 105, 84),
+    color(0),
   ];
 
   userStartAudio();
@@ -101,7 +104,7 @@ function randomColoresBalanceados() {
   if (red(col) === 0 && green(col) === 0 && blue(col) === 0) {
     col.setAlpha(100); 
   } else {
-    col.setAlpha(255);
+    col.setAlpha(230);
   }
 
   return col;
