@@ -52,7 +52,7 @@ function setup() {
 
 function draw() {
   let volumen = amp.getLevel();
-  volumen = constrain(volumen, 0, 0.3);
+  volumen = constrain(volumen, 0, 0.5);
 
   if (volumen > AMP_MIN) {
     tiempoUltimoSonido = millis();
@@ -77,9 +77,9 @@ function draw() {
     let pincel;
     if (volumen < 0.1) {
       pincel = random(pincelesBajo);
-    } else if (volumen < 0.3) {
+    } else if (volumen < 0.2) {
       pincel = random(pincelesMedio);
-    } else {
+    } else  {
       pincel = random(pincelesAlto);
     }
 
