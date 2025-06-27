@@ -3,7 +3,7 @@ class Caos extends Pincelada {
     super();
     this.x = random(width);
     this.y = random(height);
-    this.escala = 2.0;      
+    this.escala = constrain(2.0, 0.4, 1.0);     
     this.angulo = random(TWO_PI);
   }
 
