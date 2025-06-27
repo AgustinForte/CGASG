@@ -3,7 +3,7 @@ class Onda extends Pincelada {
     super();
     this.x = random(width); 
     this.y = random(height);
-    this.escala = 1.0;       
+    this.escala = constrain(1.0, 0.4, 1.0);      
   }
   dibujar(g) {
     g.tint(this.color);
