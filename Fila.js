@@ -3,7 +3,7 @@ class Fila extends Pincelada {
     super();
     this.x = random(width); 
     this.y = random(height);
-    this.escala = 0.4;       
+    this.escala = constrain(0.4, 0.4, 1.0);     
   }
 
   dibujar(g) {
