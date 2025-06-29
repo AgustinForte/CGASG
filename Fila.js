@@ -1,6 +1,6 @@
 class Fila extends Pincelada {
   constructor() {
-    super();
+    super(Pincelada.pincelesFila);
     this.x = random(width); 
     this.y = random(height);
     this.escala = constrain(0.4, 0.4, 1.0);     
