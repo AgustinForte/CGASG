@@ -1,15 +1,23 @@
 class Pincelada {
-  static pinceles = [];
+  static pincelesFila = [];
+  static pincelesOnda = [];
+  static pincelesCaos = [];
   static colores = [];
   static ultimoColor = null;
 
   static cargarPinceles() {
     for (let i = 1; i <= 17; i++) {
       let img = loadImage(`imagenes/${i}.png`);
-      this.pinceles.push(img);
+      if (i <= 5) {
+        this.pincelesFila.push(img);
+      } else if (i <= 11) {
+        this.pincelesOnda.push(img);
+      } else {
+        this.pincelesCaos.push(img);
+      }
     }
 
-    this.colores = [
+     this.colores = [
       color(208, 87, 76),
       color(40, 97, 164),
       color(193, 174, 80),
@@ -18,8 +26,8 @@ class Pincelada {
     ];
   }
 
-  constructor() {
-    this.imagen = random(Pincelada.pinceles);
+  constructor(imagenes) {
+    this.imagen = random(imagenes); // recibe la lista de imágenes que le pasás
     this.color = this.elegirColor();
   }
 
