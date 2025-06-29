@@ -27,7 +27,7 @@ class Pincelada {
   }
 
   constructor(imagenes) {
-    this.imagen = random(imagenes); // recibe la lista de imágenes que le pasás
+    this.imagen = random(imagenes); 
     this.color = this.elegirColor();
   }
 
