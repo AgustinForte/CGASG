@@ -5,6 +5,10 @@ class Obra {
   constructor() {
     this.canvas = createGraphics(400, 800);
     this.canvas.clear();
+    this.estado = 0; 
+    this.umbralCambio = 0.29; 
+    this.ultimoCambio = 0;
+    this.tiempoEspera = 1000; 
 
     userStartAudio();
     this.mic = new p5.AudioIn();
@@ -20,35 +24,67 @@ class Obra {
     this.caos = [];
 
     // límites por grupo
-    this.maxFilas = 20;
-    this.maxOndas = 15;
-    this.maxCaos = 10;
+    this.maxFilas = 200;
+    this.maxOndas = 100;
+    this.maxCaos = 600;
   }
 
   actualizar() {
   let vol = this.amp.getLevel();
   vol = constrain(vol, 0, 0.3);
+  let ahora = millis();
+
+  // CAMBIO DE ESTADO CON APLAUSO
+  if (vol > this.umbralCambio && ahora - this.ultimoCambio > this.tiempoEspera) {
+    this.estado = (this.estado + 1) % 3;
+    this.ultimoCambio = ahora;
+
+    // Borra todo lo anterior al cambiar de estado
+    this.filas = [];
+    this.ondas = [];
+    this.caos = [];
+
+    this.canvas.background(255);
+  }
+
+  if (millis() - this.ultimoCambio < 500) return;
 
   if (vol > Obra.AMP_MIN) {
     this.tiempoUltimoSonido = millis();
 
-    if (vol < 0.1) {
+    if (this.estado === 0) {
       if (this.filas.length < this.maxFilas) {
-        let trazo = new Fila();
-        trazo.dibujar(this.canvas);
+        const trazo = new Fila();
         this.filas.push(trazo);
+        trazo.dibujar(this.canvas);
+      } else {
+        for (let t of this.filas) {
+          t.dibujar(this.canvas, vol); 
+        }
       }
-    } else if (vol < 0.2) {
+    }
+
+    else if (this.estado === 1) {
       if (this.ondas.length < this.maxOndas) {
-        let trazo = new Onda();
-        trazo.dibujar(this.canvas);
+        const trazo = new Onda();
         this.ondas.push(trazo);
-      }
-    } else {
-      if (this.caos.length < this.maxCaos) {
-        let trazo = new Caos();
         trazo.dibujar(this.canvas);
+      } else {
+        for (let t of this.ondas) {
+          t.dibujar(this.canvas, vol);
+        }
+      }
+    }
+
+    else if (this.estado === 2) {
+      if (this.caos.length < this.maxCaos) {
+        const trazo = new Caos();
         this.caos.push(trazo);
+        trazo.dibujar(this.canvas);
+      } else {
+        for (let t of this.caos) {
+          t.dibujar(this.canvas, vol);
+        }
       }
     }
   }
@@ -63,7 +99,6 @@ class Obra {
 
   if (sinSonido > Obra.TIEMPO_LIMITE * 2) {
     this.canvas.background(255);
-
     this.filas = [];
     this.ondas = [];
     this.caos = [];
