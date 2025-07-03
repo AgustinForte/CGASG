@@ -18,12 +18,10 @@ class Obra {
 
     this.tiempoUltimoSonido = millis();
     
-    // listas por tipo
     this.filas = [];
     this.ondas = [];
     this.caos = [];
 
-    // límites por grupo
     this.maxFilas = 200;
     this.maxOndas = 100;
     this.maxCaos = 600;
@@ -34,12 +32,10 @@ class Obra {
   vol = constrain(vol, 0, 0.3);
   let ahora = millis();
 
-  // CAMBIO DE ESTADO CON APLAUSO
   if (vol > this.umbralCambio && ahora - this.ultimoCambio > this.tiempoEspera) {
     this.estado = (this.estado + 1) % 3;
     this.ultimoCambio = ahora;
 
-    // Borra todo lo anterior al cambiar de estado
     this.filas = [];
     this.ondas = [];
     this.caos = [];
