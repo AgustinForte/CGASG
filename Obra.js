@@ -31,6 +31,9 @@ class Obra {
     this.maxOndas = 100;
     this.maxCaos = 600;
     this.maxCortas = 100;
+
+    this.ondaX = 5;
+    this.separacionOnda = 20;
   }
 
   actualizar() {
@@ -52,6 +55,8 @@ class Obra {
       this.cortas = [];
 
       this.canvas.background(255);
+
+      this.ondaX = 5;
     }
 
     if (millis() - this.ultimoCambio < 500) return;
@@ -88,9 +93,10 @@ class Obra {
         if (this.ondas.length < this.maxOndas) {
           if (vol > Obra.AMP_MIN) {
             this.tiempoUltimoSonido = millis();
-            const trazo = new Onda();
+            const trazo = new Onda(this.ondaX);
             this.ondas.push(trazo);
             trazo.dibujar(this.canvas);
+            this.ondaX += this.separacionOnda; //distancia columnas
           }
         } else {
           for (let t of this.ondas) {
