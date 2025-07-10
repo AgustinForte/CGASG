@@ -33,15 +33,19 @@ class Obra {
   let ahora = millis();
 
   if (vol > this.umbralCambio && ahora - this.ultimoCambio > this.tiempoEspera) {
-    this.estado = (this.estado + 1) % 3;
-    this.ultimoCambio = ahora;
-
-    this.filas = [];
-    this.ondas = [];
-    this.caos = [];
-
-    this.canvas.background(255);
+  let nuevoEstado = floor(random(3));
+  while (nuevoEstado === this.estado) {
+    nuevoEstado = floor(random(3));
   }
+  this.estado = nuevoEstado;
+  this.ultimoCambio = ahora;
+
+  this.filas = [];
+  this.ondas = [];
+  this.caos = [];
+
+  this.canvas.background(255);
+}
 
   if (millis() - this.ultimoCambio < 500) return;
 
@@ -55,7 +59,7 @@ class Obra {
         trazo.dibujar(this.canvas);
       } else {
         for (let t of this.filas) {
-          t.dibujar(this.canvas, vol); 
+          t.dibujar(this.canvas); 
         }
       }
     }
@@ -67,7 +71,7 @@ class Obra {
         trazo.dibujar(this.canvas);
       } else {
         for (let t of this.ondas) {
-          t.dibujar(this.canvas, vol);
+          t.dibujar(this.canvas);
         }
       }
     }
@@ -79,7 +83,7 @@ class Obra {
         trazo.dibujar(this.canvas);
       } else {
         for (let t of this.caos) {
-          t.dibujar(this.canvas, vol);
+          t.dibujar(this.canvas);
         }
       }
     }
