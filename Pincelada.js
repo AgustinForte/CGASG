@@ -2,22 +2,25 @@ class Pincelada {
   static pincelesFila = [];
   static pincelesOnda = [];
   static pincelesCaos = [];
+  static pincelesCortas = [];
   static colores = [];
   static ultimoColor = null;
 
   static cargarPinceles() {
-    for (let i = 1; i <= 17; i++) {
+    for (let i = 1; i <= 22; i++) {
       let img = loadImage(`imagenes/${i}.png`);
       if (i <= 5) {
         this.pincelesFila.push(img);
       } else if (i <= 11) {
         this.pincelesOnda.push(img);
-      } else {
+      } else if (i <= 17) {
         this.pincelesCaos.push(img);
+      } else {
+        this.pincelesCortas.push(img);
       }
     }
 
-     this.colores = [
+    this.colores = [
       color(208, 87, 76),
       color(40, 97, 164),
       color(193, 174, 80),
@@ -27,8 +30,16 @@ class Pincelada {
   }
 
   constructor(imagenes) {
-    this.imagen = random(imagenes); 
-    this.color = this.elegirColor();
+    this.imagen = random(imagenes);
+    this.colorBase = this.elegirColor();
+
+    colorMode(HSB, 360, 100, 100, 255);
+    this.h = hue(this.colorBase);
+    this.b = brightness(this.colorBase);
+    this.a = alpha(this.colorBase);
+    this.s = saturation(this.colorBase);
+
+    this.actualizarSaturacion(this.s);
   }
 
   elegirColor() {
@@ -43,13 +54,12 @@ class Pincelada {
     );
 
     Pincelada.ultimoColor = col;
-
-    if (red(col) === 0 && green(col) === 0 && blue(col) === 0) {
-      col.setAlpha(100);
-    } else {
-      col.setAlpha(230);
-    }
-
+    col.setAlpha(red(col) === 0 && green(col) === 0 && blue(col) === 0 ? 100 : 230);
     return col;
+  }
+
+  actualizarSaturacion(sat) {
+    this.s = sat;
+    this.color = color(this.h, this.s, this.b, this.a);
   }
 }
