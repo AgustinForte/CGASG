@@ -27,12 +27,12 @@ class Obra {
     this.caos = [];
     this.cortas = [];
 
-    this.maxFilas = 200;
+    this.maxFilas = 350;
     this.maxOndas = 100;
     this.maxCaos = 600;
-    this.maxCortas = 100;
+    this.maxCortas = 300;
 
-    this.ondaX = 5;
+    this.ondaX = -15;
     this.separacionOnda = 20;
   }
 
@@ -56,7 +56,7 @@ class Obra {
 
       this.canvas.background(255);
 
-      this.ondaX = 5;
+      this.ondaX = -15;
     }
 
     if (millis() - this.ultimoCambio < 500) return;
@@ -127,11 +127,11 @@ class Obra {
           if (vol > Obra.AMP_MIN) {
             this.tiempoUltimoSonido = millis();
             const trazo = new Cortas();
-            this.caos.push(trazo);
+            this.cortas.push(trazo);
             trazo.dibujar(this.canvas);
           }
         } else {
-          for (let t of this.caos) {
+          for (let t of this.cortas) {
             t.actualizarSaturacion(sat);
             t.dibujar(this.canvas);
           }
