@@ -3,7 +3,7 @@ class Cortas extends Pincelada {
     super(Pincelada.pincelesCortas);
     this.x = random(width); 
     this.y = random(height);
-    this.escala = 1.0;     
+    this.escala = 0.7;     
   }
   dibujar(g) {
     g.tint(this.color);
