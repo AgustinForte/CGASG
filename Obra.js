@@ -6,6 +6,7 @@ class Obra {
     this.canvas = createGraphics(400, 800);
     this.canvas.clear();
 
+
     this.estado = 0;
     this.umbralCambio = 0.29;
     this.ultimoCambio = 0;
@@ -27,13 +28,14 @@ class Obra {
     this.caos = [];
     this.cortas = [];
 
-    this.maxFilas = 350;
+    this.maxFilas = 600;
+    this.maxCaos = 800;
+    this.maxCortas = 600;
     this.maxOndas = 100;
-    this.maxCaos = 600;
-    this.maxCortas = 300;
 
-    this.ondaX = -15;
-    this.separacionOnda = 20;
+   this.maxOndas = 20;
+this.separacionOnda = this.canvas.width / this.maxOndas;
+this.ondaX = this.separacionOnda / 2;
   }
 
   actualizar() {
@@ -96,7 +98,7 @@ class Obra {
             const trazo = new Onda(this.ondaX);
             this.ondas.push(trazo);
             trazo.dibujar(this.canvas);
-            this.ondaX += this.separacionOnda; //distancia columnas
+            this.ondaX += this.separacionOnda;
           }
         } else {
           for (let t of this.ondas) {
