@@ -31,7 +31,7 @@ class Obra {
     this.maxFilas = 400;
     this.maxCaos = 800;
     this.maxCortas = 350;
-    this.maxOndas = 100;
+    this.maxOndas = 300;
 
    this.maxOndas = 20;
    this.separacionOnda = this.canvas.width / this.maxOndas;
