@@ -28,14 +28,14 @@ class Obra {
     this.caos = [];
     this.cortas = [];
 
-    this.maxFilas = 600;
+    this.maxFilas = 400;
     this.maxCaos = 800;
-    this.maxCortas = 600;
+    this.maxCortas = 350;
     this.maxOndas = 100;
 
    this.maxOndas = 20;
-this.separacionOnda = this.canvas.width / this.maxOndas;
-this.ondaX = this.separacionOnda / 2;
+   this.separacionOnda = this.canvas.width / this.maxOndas;
+   this.ondaX = this.separacionOnda / 2;
   }
 
   actualizar() {
